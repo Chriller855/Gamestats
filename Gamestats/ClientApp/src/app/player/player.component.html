@@ -1,0 +1,19 @@
+<h1 id="tableLabel">Players</h1>
+
+<p *ngIf="!players"><em>Loading...</em></p>
+
+<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="players">
+  <tbody>
+    <tr *ngFor="let player of players">
+      <td>{{ player.id }}</td>
+      <td>{{ player.name }}</td>
+    </tr>
+  </tbody>
+</table>
+
+<label>
+  Name:
+  <input type="text" [(ngModel)]="name">
+</label>
+
+<button (click)="addPlayer()">Add Player</button>
