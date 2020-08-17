@@ -3,7 +3,7 @@ import { Player } from './player';
 import { Round } from './round';
 
 export class Participant implements IParticipant {
-  participantId: number
+  participantId: number;
   player: Player;
   round: Round;
   winner: boolean;

@@ -5,7 +5,6 @@ import { Game } from './game';
 export class Round implements IRound {
   roundNumber: number;
   roundId: number;
-  //gameId: number;
   game: Game;
   participants: Participant[]
 

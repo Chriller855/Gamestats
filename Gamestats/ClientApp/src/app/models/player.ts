@@ -4,7 +4,7 @@ export class Player implements IPlayer {
   name: string;
 
   public player(name: string) {
-    this.name = name
+    this.name = name;
   }
 }
 

@@ -17,8 +17,6 @@ namespace Gamestats.Models
 
         [ForeignKey("player_id")]
         [Column(name: "player_id")]
-        //public int PlayerId { get; set; }
-
         public Player Player { get; set; }
 
         [Key]

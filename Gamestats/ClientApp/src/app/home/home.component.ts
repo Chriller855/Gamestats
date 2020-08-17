@@ -46,6 +46,7 @@ export class HomeComponent {
     p.player = player;
     p.winner = true;
     this.round.participants.push(p);
+    // disable Player until new round
   }
 
   public addLoser(player: Player) {
@@ -53,9 +54,11 @@ export class HomeComponent {
     p.player = player;
     p.winner = false;
     this.round.participants.push(p);
+
+    //disable Player until new round
   }
 
-  public showRound() {
+  public addRound() {
     this.genericService.put('round', this.round).subscribe((data: any[]) => {
       this.round = new Round();
     });

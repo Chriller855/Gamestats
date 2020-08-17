@@ -27,9 +27,8 @@ export class PlayerComponent {
     var me = this;
     this.playerService.put(p1).subscribe(
       (val) => {
-        this.players.push(<Player>val)
-        console.log("POST call successful value returned in body",
-          val);
+        this.players.push(<Player>val);
+        console.log("POST call successful value returned in body", val);
       },
       response => {
         console.log("POST call in error", response);

@@ -3,7 +3,7 @@ export class Game implements IGame {
   name: string;
 
   public Game(name: string) {
-    this.name = name
+    this.name = name;
   }
 }
 
