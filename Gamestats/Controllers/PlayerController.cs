@@ -18,18 +18,17 @@ namespace Gamestats.Controllers
             context = c;
         }
 
-        // GET: api/<GameController>
         [HttpGet]
-        public IEnumerable<Player> Get()
+        public IEnumerable<IPlayer> Get()
         {
             return context.Player.Where(b => b.Id > 0);
         }
 
         // GET api/<GameController>/5
         [HttpGet("{id}")]
-        public Player Get(int id)
+        public IPlayer Get(int id)
         {
-            return context.Player.Where(b => b.Id == id).FirstOrDefault();
+            return context.Player.Find(id);
         }
 
         // POST api/<GameController>
@@ -55,7 +54,7 @@ namespace Gamestats.Controllers
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
-            context.Player.Remove(Get(id));
+            context.Player.Remove(context.Player.Find(id));
             context.SaveChanges();
         }
 
