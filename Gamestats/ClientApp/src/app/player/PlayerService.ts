@@ -1,5 +1,6 @@
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Player } from '../models/player';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,11 @@ export class PlayerService {
     return this.httpClient.get(this.REST_API_SERVER);
   }
 
-  public put(a) {
+  public post(a) {
     return this.httpClient.post(this.REST_API_SERVER, a)
+  }
+
+  public put(a: Player) {
+    return this.httpClient.post(this.REST_API_SERVER+ '/' + a.id, a)
   }
 }

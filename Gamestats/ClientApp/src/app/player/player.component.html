@@ -1,19 +1,114 @@
-<h1 id="tableLabel">Players</h1>
+<mat-drawer-container (backdropClick)="close()">
+  <mat-drawer [(opened)]="opened"  mode="side" position="end"  #sidenav (keydown.escape)="close('escape')" disableClose>
+    <mat-toolbar>
+      <span>{{playerModel.name}}</span>
+      <span class="example-spacer"></span>
+      <mat-slide-toggle [(ngModel)]="editMode">Edit</mat-slide-toggle>
+      <button mat-icon-button (click)="close()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-toolbar>
 
-<p *ngIf="!players"><em>Loading...</em></p>
+    <div *ngIf="editMode" fxLayout="column">
+      <mat-form-field >
+        <mat-label>Username</mat-label>
+        <input matInput placeholder="Username" [(ngModel)]="playerModel.name">
+      </mat-form-field>
+      <div layout="row">
+        <mat-form-field>
+          <mat-label>FirstName</mat-label>
+          <input matInput placeholder="Firstname" [(ngModel)]="playerModel.firstname">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>LastName</mat-label>
+          <input matInput placeholder="Lastname" [(ngModel)]="playerModel.lastname">
+        </mat-form-field>
+      </div>
 
-<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="players">
-  <tbody>
-    <tr *ngFor="let player of players">
-      <td>{{ player.id }}</td>
-      <td>{{ player.name }}</td>
-    </tr>
-  </tbody>
-</table>
+      <div>
+        <mat-form-field>
+          <mat-label>FavoriteGame</mat-label>
+          <input matInput placeholder="Favorite Game" [(ngModel)]="playerModel.favoriteGame">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Favorite Gamestyle</mat-label>
+          <mat-select [(ngModel)]="playerModel.favoriteGameStyle">
+            <mat-option *ngFor="let gameStyle of gameStyles" [value]="gameStyle">
+              {{gameStyle}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
 
-<label>
-  Name:
-  <input type="text" [(ngModel)]="name">
-</label>
+      <mat-form-field class="example-full-width">
+        <mat-label>SteamName</mat-label>
+        <input matInput placeholder="SteamName" [(ngModel)]="playerModel.steamName">
+      </mat-form-field>
 
-<button (click)="addPlayer()">Add Player</button>
+      <button mat-raised-button color="primary" (click)="savePlayer()">Save</button>
+    </div>
+    <div *ngIf="!editMode" fxLayout="column">
+      <mat-card class="playerdrawer">
+        <mat-card-header>
+          <mat-card-title>{{playerModel.id}} {{playerModel.name}}</mat-card-title>
+          <mat-card-subtitle>{{playerModel.firstname|| '' }} {{ playerModel.lastname || ''}}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <div layout="row">
+            Favorite Game: {{playerModel.favoriteGame || 'N/A'}} <br />
+            Favorite Game Style: {{playerModel.favoriteGameStyle || 'N/A'}} <br />
+            Winrate 33%
+          </div>
+        </mat-card-content>
+      </mat-card>
+     
+      <p class="smallPadding" >last Games Played and results:</p>
+      <table mat-table [dataSource]="gamesPlayed" class="mat-elevation-z8">
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef> Game </th>
+          <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+        </ng-container>
+        <ng-container matColumnDef="winner">
+          <th mat-header-cell *matHeaderCellDef> Winner/Loser </th>
+          <td mat-cell *matCellDef="let element"> {{element.winner?'Winner ': 'Loser ' }} <mat-icon aria-hidden="false" aria-label="icon">{{element.winner?'mood': 'mood_bad' }}</mat-icon> </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumnsGamesPlayed"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumnsGamesPlayed;" (click)="getRecord(row)"></tr>
+      </table>
+</div>
+  </mat-drawer>
+
+  <mat-drawer-content class="example-sidenav-content" fxLayout="column">
+    <div fxLayout="row">
+      <h1>Players</h1>
+      <span class="example-spacer"></span>
+      <button mat-raised-button color="primary" (click)="createNewPlayer()">Add new player</button>
+    </div>
+    <p *ngIf="!players"><em>Loading...</em></p>
+    <table *ngIf="players" mat-table [dataSource]="players" class="mat-elevation-z8">
+      <!--- Note that these columns can be defined in any order.
+      The actual rendered columns are set as a property on the row definition" -->
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> Username </th>
+        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+      </ng-container>
+
+      <!-- Winner Column -->
+      <ng-container matColumnDef="id">
+        <th mat-header-cell class="smallPadding" *matHeaderCellDef> id </th>
+        <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="getRecord(row)"></tr>
+    </table>
+  </mat-drawer-content>
+
+</mat-drawer-container>
+
+
+
+
+

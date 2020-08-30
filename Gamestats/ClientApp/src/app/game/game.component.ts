@@ -13,6 +13,8 @@ export class GameComponent {
   public name: string;
   private gameService: GameService;
 
+  displayedColumns: string[] = ['id', 'name'];
+
   constructor(gameService: GameService) {
     this.gameService = gameService;
 

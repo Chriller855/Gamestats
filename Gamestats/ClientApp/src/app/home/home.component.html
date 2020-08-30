@@ -1,26 +1,5 @@
-<h1>Hello, world!</h1>
-<p>Welcome to your new ScoreBoard application</p>
-<ul>
-</ul>
-<p>Add results to a game</p>
-
-<h4>Basic mat-select</h4>
-
-<select *ngIf="games" [(ngModel)]="round.game">
-  <option *ngFor="let game of games" [(ngValue)]="game">{{game.name}}</option>
-</select>
+<upcomming-mathes></upcomming-mathes>
 
 
-<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="players">
-  <tbody>
-    <tr *ngFor="let player of players">
-      <td>{{ player.name }}</td>
-      <td><button (click)="addWinner(player)">Winner</button></td>
-      <td><button (click)="addLoser(player)">Loser</button></td>
-    </tr>
-  </tbody>
-</table>
-
-  <button (click)="addRound()">Add Round</button>
 
 

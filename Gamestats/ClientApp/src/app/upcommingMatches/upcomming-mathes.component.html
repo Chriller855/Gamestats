@@ -1,0 +1,34 @@
+<mat-accordion>
+  <mat-expansion-panel cdkDropList
+         #myUpcommingMatchesList="cdkDropList"
+         [cdkDropListData]="myUpcommingMatches"
+         [cdkDropListConnectedTo]="[upcommingMatchesList]"
+         class="example-list"
+         (cdkDropListDropped)="drop($event)">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Upcomming Matches
+      </mat-panel-title>
+      <mat-panel-description>
+        Here is a list of upcomming matches
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <div class="example-box" *ngFor="let item of myUpcommingMatches" cdkDrag>{{item.game.name}} - {{item.date.toLocaleDateString()}} </div>
+  </mat-expansion-panel>
+  <mat-expansion-panel cdkDropList
+         #upcommingMatchesList="cdkDropList"
+         [cdkDropListData]="upcommingMatches"
+         [cdkDropListConnectedTo]="[myUpcommingMatchesList]"
+         class="example-list"
+         (cdkDropListDropped)="drop($event)">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        My Upcomming Matches
+      </mat-panel-title>
+      <mat-panel-description>
+        I Currently Have {{upcommingMatches.length}} upcomming matches
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <div class="example-box" *ngFor="let item of upcommingMatches" cdkDrag>{{item.game.name}} - {{item.date.toLocaleDateString()}}</div>
+  </mat-expansion-panel>
+</mat-accordion>

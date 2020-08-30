@@ -1,0 +1,41 @@
+<div layout="row" class="flexbox-parent">
+  <form layout-align="center center">
+    <mat-form-field >
+      <mat-label>Select Game</mat-label>
+      <input type="text" matInput [formControl]="myControl" [matAutocomplete]="auto">
+      <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)="selectedclient($event)">
+        <mat-option *ngFor="let game of games" [value]="game">
+          {{game.name}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+
+    <table mat-table [dataSource]="players" class="mat-elevation-z8">
+      <!--- Note that these columns can be defined in any order.
+            The actual rendered columns are set as a property on the row definition" -->
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> Name </th>
+        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+      </ng-container>
+
+      <!-- Winner Column -->
+      <ng-container matColumnDef="winner">
+        <th mat-header-cell class="smallPadding" *matHeaderCellDef> Winner </th>
+        <td mat-cell *matCellDef="let element"> <button mat-button color="primary" (click)="addWinner(element, true)">Winner</button> </td>
+      </ng-container>
+
+      <!-- Loser Column -->
+      <ng-container matColumnDef="loser">
+        <th mat-header-cell class="smallPadding" *matHeaderCellDef> Loser </th>
+        <td mat-cell *matCellDef="let element"> <button mat-button color="warn" (click)="addWinner(element, false)">Loser</button> </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;" ></tr>
+    </table>
+    <button mat-raised-button color="primary" layout-align="end center" (click)="addRound()">Add Round</button>
+  </form>
+</div>
+
+

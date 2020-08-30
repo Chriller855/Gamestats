@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { PlayerService } from './PlayerService';
 import {Player} from '../models/player'
+import { Round } from '../models/round';
+import { Game } from '../models/game';
 
 
 @Component({
@@ -11,7 +13,21 @@ import {Player} from '../models/player'
 export class PlayerComponent {
   public players: Player[];
   public name: string;
+  public playerModel: Player = new Player();
   private playerService: PlayerService;
+  displayedColumns: string[] = ['id', 'name'];
+  opened: boolean = false;
+  editMode: boolean = false;
+
+  gameStyles: string[] = ["FPS", "MOBA", "Platforming", "Adventure"];
+
+  gamesPlayed = [
+    { name: "oneNight", winner: false },
+    { name: "oneNight", winner: true },
+    { name: "oneNight", winner: false }
+  ]
+
+  displayedColumnsGamesPlayed: string[] =['name', "winner"];
 
   constructor(playerService: PlayerService) {
     this.playerService = playerService;
@@ -21,11 +37,16 @@ export class PlayerComponent {
     })
   }
 
+  close() {
+    this.opened = false;
+    this.editMode = false;
+  }
+
   public addPlayer() {
     var p1 = new Player()
     p1.name = this.name;
     var me = this;
-    this.playerService.put(p1).subscribe(
+    this.playerService.post(p1).subscribe(
       (val) => {
         this.players.push(<Player>val);
         console.log("POST call successful value returned in body", val);
@@ -38,6 +59,50 @@ export class PlayerComponent {
       });
 
     this.name = null
+  }
+
+  public createNewPlayer() {
+    this.playerModel = new Player();
+    this.editMode = true;
+    this.opened = true;
+  }
+
+  public savePlayer() {
+    if (this.playerModel.id > -1) {
+      var p1 = this.playerModel;
+      this.playerService.put(p1).subscribe(
+        (val) => {
+          this.players.push(<Player>val);
+          console.log("put call successful value returned in body", val);
+        },
+        response => {
+          console.log("put call in error", response);
+        },
+        () => {
+          console.log("The put observable is now completed.");
+        });
+    } else {
+      var p1 = this.playerModel;
+      this.playerService.post(p1).subscribe(
+        (val) => {
+          this.players.push(<Player>val);
+          console.log("POST call successful value returned in body", val);
+        },
+        response => {
+          console.log("POST call in error", response);
+        },
+        () => {
+          console.log("The POST observable is now completed.");
+        });
+    }
+    this.editMode = false
+    this.opened = false
+  }
+
+  public getRecord(row) {
+    this.playerModel = row;
+    this.editMode = false
+    this.opened = true
   }
 
 }
