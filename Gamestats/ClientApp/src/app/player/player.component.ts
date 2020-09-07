@@ -3,6 +3,7 @@ import { PlayerService } from './PlayerService';
 import {Player} from '../models/player'
 import { Round } from '../models/round';
 import { Game } from '../models/game';
+import { GameService } from '../game/gameService';
 
 
 @Component({
@@ -12,6 +13,7 @@ import { Game } from '../models/game';
 
 export class PlayerComponent {
   public players: Player[];
+  public games: Game[];
   public name: string;
   public playerModel: Player = new Player();
   private playerService: PlayerService;
@@ -27,14 +29,18 @@ export class PlayerComponent {
     { name: "oneNight", winner: false }
   ]
 
-  displayedColumnsGamesPlayed: string[] =['name', "winner"];
+  displayedColumnsGamesPlayed: string[] = ['name', "winner"];
 
-  constructor(playerService: PlayerService) {
+  constructor(playerService: PlayerService , gameService: GameService) {
     this.playerService = playerService;
 
     this.playerService.get().subscribe((data: any[]) => {
       this.players = data;
-    })
+    });
+
+    gameService.get().subscribe((data: any[]) => {
+      this.games = data;
+    });
   }
 
   close() {
@@ -103,6 +109,19 @@ export class PlayerComponent {
     this.playerModel = row;
     this.editMode = false
     this.opened = true
+  }
+
+  public displayFn(game: Game) {
+    if (game) {
+      return game.name
+    }
+    return '';
+  }
+
+  public selectedclient(event) {
+    if (event.option.value) {
+      this.playerModel.favoriteGame = event.option.value;
+    }
   }
 
 }

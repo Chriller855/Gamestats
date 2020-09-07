@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -27,7 +28,9 @@ namespace Gamestats.Models
         public string firstname { get; set; }
         public string lastname { get; set; }
 
-        //public Game favoriteGame { get; set; }
+        [Column(name: "favoriteGameId")]
+        [ForeignKey("favoriteGameId")]
+        public Game favoriteGame { get; set; }
         public string favoriteGameStyle { get; set; }
         public string steamName { get; set; }
     }

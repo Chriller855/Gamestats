@@ -7,6 +7,7 @@ import { Player } from '../models/player';
 })
 export class PlayerService {
 
+  // should contain a list of users
   private httpClient : HttpClient
   private REST_API_SERVER : string;
 

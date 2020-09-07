@@ -54,9 +54,7 @@ export class RoundComponent {
   }
 
   public selectedclient(event) {
-    console.log(event)
     if (event.option.value) {
-      console.log(event.option.value);
       this.round.game = event.option.value;
     }
   }
