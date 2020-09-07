@@ -13,7 +13,7 @@ namespace Gamestats.Models
         [Column(name: "round_id")]
         public int RoundId { get; set; }
 
-        public Round Round { get; set; }
+        //public Round Round { get; set; }
 
         [ForeignKey("player_id")]
         [Column(name: "player_id")]

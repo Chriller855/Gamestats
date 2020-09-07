@@ -6,7 +6,7 @@ export class Player implements IPlayer {
   lastname: string;
   address: string;
 
-  favoriteGame: string;
+  favoriteGame: number;
   favoriteGameStyle: string;
 
   steamName: string;

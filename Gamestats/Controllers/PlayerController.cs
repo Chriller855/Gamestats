@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -45,8 +46,7 @@ namespace Gamestats.Controllers
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] Player value)
         {
-            Player g = context.Player.First(a => a.Id == id);
-            g = value;
+            context.Update(value);
             context.SaveChanges();
         }
 
@@ -56,6 +56,21 @@ namespace Gamestats.Controllers
         {
             context.Player.Remove(context.Player.Find(id));
             context.SaveChanges();
+        }
+
+        [HttpGet("{id}/stats")]
+        public List<Stat> GetStatsForPlayer(int id)
+        {
+            Player p = context.Player.Find(id);
+
+            List<Stat> statlist = new List<Stat>();
+
+            statlist.Add (new Stat() {
+                key = "GamesPlayed",
+                value = context.Participant.Where(o => o.Player == p).Count(),
+                unit = "" }
+            );
+            return statlist;
         }
 
     }

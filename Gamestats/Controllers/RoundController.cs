@@ -19,35 +19,42 @@ namespace Gamestats.Controllers
             context = c;
         }
 
-        // GET: api/<GameController>
+        // GET: api/<RoundController>
         [HttpGet]
         public IEnumerable<Round> Get()
         {
-            var b = context.Participant.
-                Include(a => a.Player).
-                Include(a => a.Round).ThenInclude(round => round.Game).ToList();
+
+            //var b = context.Participant.
+            //    Include(a => a.Player).
+            //    Include(a => a.Round).ThenInclude(round => round.Game).ToList();
 
             var a = context.Round.
-                Include(a => a.Game);
+                Include(a => a.Game).Include(a => a.Participants);
+
             return a;
 
         }
 
-        // POST api/<GameController>
+        // POST api/<RoundController>
         [HttpPost]
-        public Round Post([FromBody] Round value)
+        public void Post([FromBody] Round value)
         {
 
             value.RoundNumber = context.Round.Count(o => o.Game.Id == value.Game.Id) + 1;
             value.Game = context.Game.Find(value.Game.Id);
             // Needs Validation and autoIncrement will take care of ID
             value.Participants.ToList().ForEach(p =>
-           {
+            {
                p.Player = context.Player.Find(p.Player.Id);
-           });
+            });
             context.Round.Add(value);
             context.SaveChanges();
-            return value;
+        }
+
+        [HttpGet("{id}")]
+        public Round Get(int id)
+        {
+            return context.Round.Find(id);
         }
     }
 }

@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace Gamestats.Models
 {
-    public class PlayerWinRate : Player
+    public class PlayerWithStats : Player
     {
         [Key]
         public int Id { get; set; }
@@ -23,6 +23,13 @@ namespace Gamestats.Models
         [Key]
         public int Id { get; set; }
         public string Name { get; set; }
+
+        public string firstname { get; set; }
+        public string lastname { get; set; }
+
+        //public Game favoriteGame { get; set; }
+        public string favoriteGameStyle { get; set; }
+        public string steamName { get; set; }
     }
 
     public interface IPlayer

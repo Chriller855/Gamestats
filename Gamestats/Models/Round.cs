@@ -14,7 +14,7 @@ namespace Gamestats.Models
         [Column(name: "round_id")]
         public int RoundId { get; set; }
 
-        public ICollection<Participant> Participants { get; set; }
+        public virtual ICollection<Participant> Participants { get; set; }
 
         [Column(name: "game_id")]
         [ForeignKey("game_id")]

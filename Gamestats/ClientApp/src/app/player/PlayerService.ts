@@ -24,6 +24,6 @@ export class PlayerService {
   }
 
   public put(a: Player) {
-    return this.httpClient.post(this.REST_API_SERVER+ '/' + a.id, a)
+    return this.httpClient.put(this.REST_API_SERVER+ '/' + a.id, a)
   }
 }
