@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Gamestats.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Gamestats.Controllers
 {
@@ -20,9 +21,9 @@ namespace Gamestats.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<IPlayer> Get()
+        public IEnumerable<Player> Get()
         {
-            return context.Player.Where(b => b.Id > 0);
+            return context.Player.Include(a => a.favoriteGame);
         }
 
         // GET api/<GameController>/5

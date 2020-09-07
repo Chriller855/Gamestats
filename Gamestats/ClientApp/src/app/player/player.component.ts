@@ -111,17 +111,10 @@ export class PlayerComponent {
     this.opened = true
   }
 
-  public displayFn(game: Game) {
-    if (game) {
-      return game.name
-    }
-    return '';
-  }
+  compareObjects(o1: any, o2: any): boolean {
+        
 
-  public selectedclient(event) {
-    if (event.option.value) {
-      this.playerModel.favoriteGame = event.option.value;
-    }
+    return o1 && o2 && o1.name === o2.name && o1.id === o2.id;
   }
 
 }

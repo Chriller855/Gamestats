@@ -1,3 +1,4 @@
+import { Game } from "./game";
 
 export class Player implements IPlayer {
   id: number;
@@ -6,7 +7,7 @@ export class Player implements IPlayer {
   lastname: string;
   address: string;
 
-  favoriteGame: number;
+  favoriteGame: Game;
   favoriteGameStyle: string;
 
   steamName: string;
@@ -15,6 +16,7 @@ export class Player implements IPlayer {
   public player(name: string) {
     this.name = name;
   }
+
 }
 
 export interface IPlayer {

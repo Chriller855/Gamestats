@@ -28,7 +28,7 @@
       <div>
         <mat-form-field>
           <mat-label>Select Game</mat-label>
-          <mat-select [(value)]="playerModel.favoriteGame">
+          <mat-select [(ngModel)]="playerModel.favoriteGame" [compareWith]="compareObjects">
             <mat-option *ngFor="let game of games" [value]="game">
               {{game.name}}
             </mat-option>
@@ -60,7 +60,7 @@
         </mat-card-header>
         <mat-card-content>
           <div layout="row">
-            Favorite Game: {{playerModel.favoriteGame || 'N/A'}} <br />
+            Favorite Game: {{playerModel.favoriteGame ? playerModel.favoriteGame.name : 'N/A'}} <br />
             Favorite Game Style: {{playerModel.favoriteGameStyle || 'N/A'}} <br />
             Winrate 33%
           </div>
