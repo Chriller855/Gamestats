@@ -1,6 +1,7 @@
 
   <nav layout="column" class="sidenav1 md-whiteframe-z2" md-is-locked-open="$mdMedia('gt-sm')">
-    <div class="SidebarHeader">
+    <div class="smallPadding" fxLayout="row" fxLayoutAlign="center center">
+      <mat-icon aria-hidden="false">home</mat-icon>
       <a class="navbar-brand" [routerLink]="['/']">Gamestats</a>
     </div>
     <div class="SidebarContent">
@@ -13,14 +14,10 @@
           <a class="nav-link" [routerLink]="['/']">Home</a>
         </li>
         <li class="nav-item" [routerLinkActive]="['link-active']">
-          <a class="nav-link" [routerLink]="['/player']"
-            >Player</a
-          >
+          <a class="nav-link" [routerLink]="['/player']">Player</a>
         </li>
         <li class="nav-item" [routerLinkActive]="['link-active']">
-          <a class="nav-link" [routerLink]="['/game']"
-            >Game</a
-          >
+          <a class="nav-link" [routerLink]="['/game']">Game</a >
         </li>
       </ul>
     </div>

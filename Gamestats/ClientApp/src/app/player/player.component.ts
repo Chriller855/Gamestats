@@ -76,6 +76,8 @@ export class PlayerComponent {
   public savePlayer() {
     if (this.playerModel.id > -1) {
       var p1 = this.playerModel;
+
+      // all the service stuff should be in service
       this.playerService.put(p1).subscribe(
         (val) => {
           this.players.push(<Player>val);
@@ -101,6 +103,7 @@ export class PlayerComponent {
           console.log("The POST observable is now completed.");
         });
     }
+
     this.editMode = false
     this.opened = false
   }
@@ -112,8 +115,6 @@ export class PlayerComponent {
   }
 
   compareObjects(o1: any, o2: any): boolean {
-        
-
     return o1 && o2 && o1.name === o2.name && o1.id === o2.id;
   }
 
