@@ -23,7 +23,7 @@ namespace Gamestats.Controllers
         [HttpGet]
         public IEnumerable<Player> Get()
         {
-            return context.Player.Include(a => a.favoriteGame);
+            return context.Player.Include(a => a.favoriteGame).OrderBy(c => c.Name);
         }
 
         // GET api/<GameController>/5
@@ -67,10 +67,17 @@ namespace Gamestats.Controllers
             List<Stat> statlist = new List<Stat>();
 
             statlist.Add (new Stat() {
-                key = "GamesPlayed",
+                key = "Games Played",
                 value = context.Participant.Where(o => o.Player == p).Count(),
                 unit = "" }
             );
+
+            statlist.Add(new Stat()
+            {
+                key = "Wins",
+                value = context.Participant.Where(o => o.Player == p  && o.Winner).Count(),
+                unit = ""
+            });
             return statlist;
         }
 
